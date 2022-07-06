@@ -1,0 +1,14 @@
+name: deploy and integrity test
+on:
+  push:
+    branches: [ "main", "git-annex"]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  deploy:
+    uses: courtois-neuromod/actions-template/.github/workflows/deploy.yml@b0b052198b204b71ec6aa5043de6b4af1a0f4dff
+    with:
+      name: CNeuromod Bot
+      email: courtois.neuromod@gmail.com
+    secrets:
+      ssh_key: ${{ secrets.CNEUROMOD_BOT_SSH_KEY }}
