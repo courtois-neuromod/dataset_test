@@ -7,8 +7,5 @@ on:
 jobs:
   deploy:
     uses: courtois-neuromod/actions-template/.github/workflows/deploy.yml@main
-    with:
-      name: CNeuromod Bot
-      email: courtois.neuromod@gmail.com
     secrets:
       ssh_key: ${{ secrets.CNEUROMOD_BOT_SSH_KEY }}
