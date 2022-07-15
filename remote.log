@@ -1,0 +1,1 @@
+90ea5780-c631-4c2d-9a7d-0338e52024de autoenable=true bucket=testbucket chunk=1GiB datacenter=US encryption=none exporttree=no host=s3.unf-montreal.ca name=testremote port=443 protocol=https requeststyle=path storageclass=STANDARD type=S3 timestamp=1657892821.127291421s
