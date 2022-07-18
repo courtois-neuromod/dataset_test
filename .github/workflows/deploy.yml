@@ -8,4 +8,4 @@ jobs:
   deploy:
     uses: courtois-neuromod/actions-template/.github/workflows/deploy.yml@main
     secrets:
-      ssh_key: ${{ secrets.CNEUROMOD_BOT_SSH_KEY }}
+      ssh_key: ${{ github.event.repository.private && secrets.CNEUROMOD_BOT_SSH_KEY || secrets.CNEUROMOD_USER_BOT_SSH_KEY }}
