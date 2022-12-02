@@ -1,11 +1,21 @@
-name: deploy and integrity test
+name: Test deploy
 on:
   push:
-    branches: [ "main", "git-annex"]
+    branches: [ main, git-annex, tests]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 jobs:
-  deploy:
-    uses: courtois-neuromod/actions-template/.github/workflows/deploy.yml@main
+  deploy_linux:
+    uses: courtois-neuromod/actions-template/.github/workflows/deploy.yml@34aa58edb1540c18f3ea5ea23a38a08bd6ee5c97
+    with:
+      name: CNeuromod UserBot
+      email: courtois.neuromod@gmail.com
+    secrets:
+      ssh_key: ${{ github.event.repository.private && secrets.CNEUROMOD_BOT_SSH_KEY || secrets.CNEUROMOD_USER_BOT_SSH_KEY }}
+  deploy_mac:
+    uses: courtois-neuromod/actions-template/.github/workflows/deploy_mac.yml@34aa58edb1540c18f3ea5ea23a38a08bd6ee5c97
+    with:
+      name: CNeuromod UserBot
+      email: courtois.neuromod@gmail.com
     secrets:
       ssh_key: ${{ github.event.repository.private && secrets.CNEUROMOD_BOT_SSH_KEY || secrets.CNEUROMOD_USER_BOT_SSH_KEY }}
