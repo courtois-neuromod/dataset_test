@@ -30,5 +30,10 @@ jobs:
         run: |
           git clone https://github.com/courtois-neuromod/actions-datasets.git /tmp/actions
           git -C /tmp/actions checkout test_windows
+      - name: debug
+        run: |
+          git --version
+          git-annex version
+          datalad wtf
       - name: "Test deploy"
         run: python -m pytest -v --full-trace --log-cli-level=WARNING /tmp/actions/tests
