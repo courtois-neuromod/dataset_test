@@ -22,10 +22,8 @@ jobs:
           python -m pip install datalad-installer
           datalad-installer git-annex -m datalad/git-annex:release
           python -m pip install datalad
-      - name: "setup gh ssh"
-        run: |
-          mkdir -p /root/.ssh/
-          ssh-keyscan -H github.com | install -m 600 /dev/stdin /root/.ssh/known_hosts
+      - name: get tests repo
+        run: git clone https://github.com/courtois-neuromod/actions-datasets.git /tmp/actions
       - name: "Test deploy"
         run: |
-          pytest --log-cli-level=WARNING /actions/tests
+          python -m pytest --log-cli-level=WARNING /tmp/actions/tests
