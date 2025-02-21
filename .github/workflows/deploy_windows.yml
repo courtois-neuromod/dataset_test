@@ -28,6 +28,7 @@ jobs:
         run: |
           python -m pip install datalad-installer 
           datalad-installer git-annex -m datalad/git-annex:release
+          git config --global filter.annex.process "git-annex filter-process"
           python -m pip install datalad pytest pytest-order ssh_agent_setup
       - name: get tests repo
         run: |
