@@ -21,7 +21,7 @@ jobs:
         run: |
           python -m pip install datalad-installer
           datalad-installer git-annex -m datalad/git-annex:release
-          python -m pip install datalad
+          python -m pip install datalad pytest pytest-order
       - name: get tests repo
         run: git clone https://github.com/courtois-neuromod/actions-datasets.git /tmp/actions
       - name: "Test deploy"
