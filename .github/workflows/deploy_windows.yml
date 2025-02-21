@@ -31,4 +31,5 @@ jobs:
           git -C /tmp/actions checkout test_windows
       - name: "Test deploy"
         run: |
+          python -c "import os; print(os.environ)"
           python -m pytest --log-cli-level=WARNING /tmp/actions/tests
