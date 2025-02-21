@@ -30,6 +30,4 @@ jobs:
           git clone https://github.com/courtois-neuromod/actions-datasets.git /tmp/actions
           git -C /tmp/actions checkout test_windows
       - name: "Test deploy"
-        run: |
-          python -c "import os; print(os.environ)"
-          python -m pytest --log-cli-level=WARNING /tmp/actions/tests
+        run: python -m pytest -v --full-trace --log-cli-level=WARNING /tmp/actions/tests
