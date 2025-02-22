@@ -39,5 +39,7 @@ jobs:
           git --version
           git-annex version
           datalad wtf
+      - name: "debug2"
+        run: datalad -l 9 install -s git@github.com:${{ github.repository }}.git
       - name: "Test deploy"
         run: python -m pytest -v --full-trace --log-cli-level=WARNING /tmp/actions/tests
