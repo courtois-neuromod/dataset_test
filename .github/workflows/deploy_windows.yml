@@ -41,5 +41,5 @@ jobs:
         shell: bash
         run: |
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-          ssh-add >/dev/null
+          echo "$SSH_PRIVATE_KEY" | ssh-add - >/dev/null
           python -m pytest -v --full-trace --log-cli-level=WARNING /tmp/actions/tests
