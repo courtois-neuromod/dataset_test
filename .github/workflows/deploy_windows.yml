@@ -40,6 +40,5 @@ jobs:
           eval "$(ssh-agent -s)"
           echo "$SSH_PRIVATE_KEY" | ssh-add - >/dev/null
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          git clone git@github.com:${GITHUB_REPOSITORY}.git
           git config --global datalad.ssh.identityfile ~/.ssh/id_rsa
           pytest -v --full-trace --log-cli-level=WARNING /tmp/actions/tests/deploy
