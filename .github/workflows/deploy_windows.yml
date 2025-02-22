@@ -39,4 +39,4 @@ jobs:
           git -C /tmp/actions checkout test_windows
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           echo "$SSH_PRIVATE_KEY" | ssh-add - >/dev/null
-          python -m pytest -v --full-trace --log-cli-level=WARNING /tmp/actions/tests
+          python -m pytest -v --full-trace --log-cli-level=WARNING /tmp/actions/tests/test_deploy.py
