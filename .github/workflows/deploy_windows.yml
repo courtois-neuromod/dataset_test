@@ -22,7 +22,7 @@ jobs:
           python-version: 3.11
       - name: setup_ssh
         shell: bash
-        run: ssh-keyscan -H -t rsa github.com >> ~/.ssh/known_hosts
+        run: ssh-keyscan -H -t rsa github.com >> $HOME/.ssh/known_hosts
       - uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ github.event.repository.private && secrets.CNEUROMOD_BOT_SSH_KEY || secrets.CNEUROMOD_USER_BOT_SSH_KEY }}
