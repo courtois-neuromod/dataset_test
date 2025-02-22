@@ -8,7 +8,7 @@ jobs:
   deploy_windows:
     runs-on: windows-latest
     env:
-      SECRET_KEY: ${{ secrets.ssh_key }}
+      SSH_PRIVATE_KEY: ${{ github.event.repository.private && secrets.CNEUROMOD_BOT_SSH_KEY || secrets.CNEUROMOD_USER_BOT_SSH_KEY  }}
       GIT_USERNAME: ${{ inputs.name }}
       GIT_EMAIL: ${{ inputs.email }}
       AWS_ACCESS_KEY_ID: ${{ secrets.s3_access_key }}
@@ -25,9 +25,6 @@ jobs:
         run: |
           mkdir -p $HOME/.ssh
           ssh-keyscan -H -t rsa github.com >> $HOME/.ssh/known_hosts
-      - uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ github.event.repository.private && secrets.CNEUROMOD_BOT_SSH_KEY || secrets.CNEUROMOD_USER_BOT_SSH_KEY }}
       - name: setup datalad
         run: |
           python -m pip install datalad-installer 
@@ -38,14 +35,10 @@ jobs:
         run: |
           git clone https://github.com/courtois-neuromod/actions-datasets.git /tmp/actions
           git -C /tmp/actions checkout test_windows
-      - name: debug
-        run: |
-          git --version
-          git-annex version
-          datalad wtf
-      - name: "debug2"
-        run: git clone git@github.com:${{ github.repository }}.git
-      - name: "debug2"
-        run: datalad -l 9 install -s git@github.com:${{ github.repository }}.git
+
       - name: "Test deploy"
-        run: python -m pytest -v --full-trace --log-cli-level=WARNING /tmp/actions/tests
+        shell: bash
+        run: |
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          echo 'echo $SSH_PASSPHRASE' > ~/.ssh_askpass && chmod +x ~/.ssh_askpassaskpass ssh-add - >/dev/null
+          python -m pytest -v --full-trace --log-cli-level=WARNING /tmp/actions/tests
