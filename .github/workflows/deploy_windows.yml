@@ -32,14 +32,11 @@ jobs:
           datalad-installer git-annex -m datalad/git-annex:release
           git config --global filter.annex.process "git-annex filter-process"
           python -m pip install datalad pytest pytest-order ssh_agent_setup
-      - name: get tests repo
-        run: |
-          git clone https://github.com/courtois-neuromod/actions-datasets.git /tmp/actions
-          git -C /tmp/actions checkout test_windows
-
       - name: "Test deploy"
         shell: bash
         run: |
+          git clone https://github.com/courtois-neuromod/actions-datasets.git /tmp/actions
+          git -C /tmp/actions checkout test_windows
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           echo "$SSH_PRIVATE_KEY" | ssh-add - >/dev/null
           python -m pytest -v --full-trace --log-cli-level=WARNING /tmp/actions/tests
