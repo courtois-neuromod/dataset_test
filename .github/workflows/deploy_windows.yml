@@ -21,10 +21,7 @@ jobs:
         with:
           python-version: 3.11
       - name: setup_ssh
-        uses: kielabokkie/ssh-key-and-known-hosts-action@v1
-        with:
-          ssh-private-key: ${{ github.event.repository.private && secrets.CNEUROMOD_BOT_SSH_KEY || secrets.CNEUROMOD_USER_BOT_SSH_KEY }}
-          ssh-host: github.com
+        run: ssh-keyscan -H -t rsa github.com >> %ProgramData%\ssh\ssh_known_hosts
       - uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ github.event.repository.private && secrets.CNEUROMOD_BOT_SSH_KEY || secrets.CNEUROMOD_USER_BOT_SSH_KEY }}
