@@ -21,11 +21,6 @@ jobs:
         uses: actions/setup-python@v5.4.0
         with:
           python-version: 3.11
-      - name: setup_ssh
-        shell: bash
-        run: |
-          mkdir -p $HOME/.ssh
-          ssh-keyscan -H -t rsa github.com >> $HOME/.ssh/known_hosts
       - name: setup datalad
         run: |
           python -m pip install datalad-installer 
@@ -35,10 +30,10 @@ jobs:
       - name: "Test deploy"
         shell: bash
         run: |
-          git clone https://github.com/courtois-neuromod/actions-datasets.git /tmp/actions
-          git -C /tmp/actions checkout test_windows
-          eval "$(ssh-agent -s)"
-          echo "$SSH_PRIVATE_KEY" | ssh-add - >/dev/null
+          mkdir -p $HOME/.ssh
+          ssh-keyscan -H -t rsa github.com >> $HOME/.ssh/known_hosts
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           git config --global datalad.ssh.identityfile ~/.ssh/id_rsa
+          git clone https://github.com/courtois-neuromod/actions-datasets.git /tmp/actions
+          git -C /tmp/actions checkout test_windows
           pytest -v --full-trace --log-cli-level=WARNING /tmp/actions/tests/deploy
