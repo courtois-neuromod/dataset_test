@@ -31,9 +31,8 @@ jobs:
         shell: bash
         run: |
           mkdir -p $HOME/.ssh
-          ssh-keyscan -H -t rsa github.com >> $HOME/.ssh/known_hosts
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          ssh-keyscan -H -t rsa ${GITHUB_SERVER_URL##https://} >> $HOME/.ssh/known_hosts
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
           git config --global datalad.ssh.identityfile ~/.ssh/id_rsa
           git clone https://github.com/courtois-neuromod/actions-datasets.git /tmp/actions
-          git -C /tmp/actions checkout test_windows
           pytest -v --full-trace --log-cli-level=WARNING /tmp/actions/tests/deploy
