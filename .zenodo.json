@@ -1,0 +1,14 @@
+{
+  "upload_type": "dataset",
+  "title": "cneuromod anat dataset",
+  "creators": [
+    {
+      "name": "Bellec, Lune",
+      "affiliation": "CRIUGM, UdeM, MiLa"
+    }
+  ],
+  "description": "CNeuromod anatomical dataset",
+  "access_right": "open",
+  "license": "CC0",
+  "keywords": ["Datalad", "MRI"]
+}
