@@ -9,6 +9,6 @@
   ],
   "description": "CNeuromod anatomical dataset",
   "access_right": "open",
-  "license": "CC0",
+  "license": "CC0-1.0",
   "keywords": ["Datalad", "MRI"]
 }
