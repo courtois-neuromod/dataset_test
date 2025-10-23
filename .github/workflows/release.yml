@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: publish on Zenodo
-        uses: BIDS-flux/datalad-zenodo-upload
+        uses: BIDS-flux/datalad-zenodo-upload@main
         id: integration
         with:
           sandbox: true
